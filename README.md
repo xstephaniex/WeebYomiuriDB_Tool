@@ -1,2 +1,2 @@
 # WeebYomiuriDB_Tool
-Anime and Manga Database: Purdue Global University Capstone Project
+Purdue Global University Capstone Project: Anime and Manga Database
