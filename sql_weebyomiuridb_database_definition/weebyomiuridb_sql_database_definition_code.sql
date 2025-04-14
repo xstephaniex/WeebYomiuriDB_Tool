@@ -310,3 +310,108 @@ CREATE TABLE manga_character (
     FOREIGN KEY (mangaID) REFERENCES manga(mangaID) ON DELETE CASCADE,
     FOREIGN KEY (characterID) REFERENCES character(characterID) ON DELETE CASCADE
 );
+
+CREATE TABLE anime_contributor_type (
+    animecontributortypeID SERIAL PRIMARY KEY,
+    animeID INTEGER NOT NULL,
+    anime_contributor_name VARCHAR(100) NOT NULL,
+    type_label VARCHAR(50) NOT NULL,
+    FOREIGN KEY (animeID) REFERENCES anime(animeID) ON DELETE SET NULL
+);
+
+CREATE TABLE manga_contributor_type (
+    mangacontributortypeID SERIAL PRIMARY KEY,
+    mangaID INTEGER NOT NULL,
+    manga_contributor_name VARCHAR(100) NOT NULL,
+    type_label VARCHAR(50) NOT NULL,
+    FOREIGN KEY (mangaID) REFERENCES manga(mangaID) ON DELETE SET NULL
+);
+
+CREATE TABLE chapter (
+    chapterID SERIAL PRIMARY KEY,
+    mangaID INTEGER NOT NULL,
+    volume_number INTEGER,
+    chapter_number INTEGER NOT NULL,
+    chapter_title VARCHAR(255),
+    chapter_synopsis TEXT,
+
+    FOREIGN KEY (mangaID) REFERENCES manga(mangaID) ON DELETE CASCADE
+);
+
+CREATE TABLE song_type (
+    songtypeID SERIAL PRIMARY KEY,
+    type_label VARCHAR(50) NOT NULL,
+    version_label VARCHAR(50)
+);
+
+CREATE TABLE song (
+    songID SERIAL PRIMARY KEY,
+    animeID INT,
+    songtypeID INT,
+    song_name VARCHAR(150) NOT NULL,
+    song_number INTEGER,
+    song_duration INTERVAL,
+    performer_composer VARCHAR(150),
+    has_lyrics BOOLEAN DEFAULT FALSE,
+    song_source_url VARCHAR(255),
+
+    FOREIGN KEY (animeID) REFERENCES anime(animeID) ON DELETE SET NULL,
+    FOREIGN KEY (songtypeID) REFERENCES song_type(songtypeID) ON DELETE SET NULL
+);
+
+CREATE TABLE anime_rating_review (
+    animeratingID SERIAL PRIMARY KEY,
+    userID INTEGER NOT NULL,
+    animeID INTEGER NOT NULL,
+    rating_score INTEGER NOT NULL CHECK (rating_score BETWEEN 0 AND 10),
+    rating_date DATE DEFAULT CURRENT_DATE,
+    review TEXT,
+
+
+    FOREIGN KEY (userID) REFERENCES weebyomiuri_user(userID) ON DELETE CASCADE,
+    FOREIGN KEY (animeID) REFERENCES anime(animeID) ON DELETE CASCADE
+);
+
+CREATE TABLE manga_rating_review (
+    mangaratingID SERIAL PRIMARY KEY,
+    userID INTEGER NOT NULL,
+    mangaID INTEGER NOT NULL,
+    rating_score INTEGER NOT NULL CHECK (rating_score BETWEEN 0 AND 10),
+    rating_date DATE DEFAULT CURRENT_DATE,
+    review TEXT,
+
+
+    FOREIGN KEY (userID) REFERENCES weebyomiuri_user(userID) ON DELETE CASCADE,
+    FOREIGN KEY (mangaID) REFERENCES manga(mangaID) ON DELETE CASCADE
+);
+
+CREATE TABLE anime_revision_history_table (
+    animerevisionhistorytableID SERIAL PRIMARY KEY,
+    userID INTEGER NOT NULL,
+    animeID INTEGER NOT NULL,
+    updated_field VARCHAR(100) NOT NULL,
+    change_description VARCHAR(255),
+    change_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    old_value VARCHAR(255),
+    new_value VARCHAR(255),
+
+    FOREIGN KEY (userID) REFERENCES weebyomiuri_user(userID) ON DELETE CASCADE,
+    FOREIGN KEY (animeID) REFERENCES anime(animeID) ON DELETE CASCADE
+
+);
+
+
+CREATE TABLE manga_revision_history_table (
+    mangarevisionhistorytableID SERIAL PRIMARY KEY,
+    userID INTEGER NOT NULL,
+    mangaID INTEGER NOT NULL,
+    updated_field VARCHAR(100) NOT NULL,
+    change_description VARCHAR(255),
+    change_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    old_value VARCHAR(255),
+    new_value VARCHAR(255),
+
+    FOREIGN KEY (userID) REFERENCES weebyomiuri_user(userID) ON DELETE CASCADE,
+    FOREIGN KEY (mangaID) REFERENCES manga(mangaID) ON DELETE CASCADE
+
+);
