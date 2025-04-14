@@ -400,7 +400,6 @@ CREATE TABLE anime_revision_history_table (
 
 );
 
-
 CREATE TABLE manga_revision_history_table (
     mangarevisionhistorytableID SERIAL PRIMARY KEY,
     userID INTEGER NOT NULL,
