@@ -8,7 +8,7 @@
 # RUN pip install --upgrade pip==21.2.3
 psycopg2==2.9.9
 requests==2.31.0
-#ANOTHER WAY OF GETTING THIS DEPENDENCIES IS"
+# ANOTHER WAY OF GETTING THIS DEPENDENCIES IS"
 # python -m pip install Psycopg2
 # python -m pip install requests 
 
