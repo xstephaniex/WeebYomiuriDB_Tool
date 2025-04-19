@@ -152,7 +152,7 @@ CREATE TABLE season (
     animeID INTEGER NOT NULL,
     season_name VARCHAR(100) NOT NULL,
     number_of_episodes INTEGER,
-
+    \
     FOREIGN KEY (animeID) REFERENCES anime(animeID) ON DELETE CASCADE
 );
 
@@ -195,9 +195,12 @@ CREATE TABLE user_watchlist (
 
 CREATE TABLE admin (
     adminID SERIAL PRIMARY KEY,
+    userID INTEGER NOT NULL,
     admin_level VARCHAR(50) NOT NULL,
     permissions TEXT[] NOT NULL,
     assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+    FOREIGN KEY (userID) REFERENCES weebyomiuri_user(userID) ON DELETE CASCADE
 );
 
 CREATE TABLE manga (
@@ -248,7 +251,7 @@ CREATE TABLE database_activity_logs (
     entity_type VARCHAR(50) NOT NULL,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (adminID) REFERENCES admin(adminID) ON DELETE SET NULL
+    FOREIGN KEY (adminID) REFERENCES admin(adminID) ON DELETE CASCADE
 );
 
 CREATE TABLE anime_tag (
@@ -316,7 +319,7 @@ CREATE TABLE anime_contributor_type (
     animeID INTEGER NOT NULL,
     anime_contributor_name VARCHAR(100) NOT NULL,
     type_label VARCHAR(50) NOT NULL,
-    FOREIGN KEY (animeID) REFERENCES anime(animeID) ON DELETE SET NULL
+    FOREIGN KEY (animeID) REFERENCES anime(animeID) ON DELETE CASCADE
 );
 
 CREATE TABLE manga_contributor_type (
@@ -324,7 +327,7 @@ CREATE TABLE manga_contributor_type (
     mangaID INTEGER NOT NULL,
     manga_contributor_name VARCHAR(100) NOT NULL,
     type_label VARCHAR(50) NOT NULL,
-    FOREIGN KEY (mangaID) REFERENCES manga(mangaID) ON DELETE SET NULL
+    FOREIGN KEY (mangaID) REFERENCES manga(mangaID) ON DELETE CASCADE
 );
 
 CREATE TABLE chapter (
@@ -355,8 +358,8 @@ CREATE TABLE song (
     has_lyrics BOOLEAN DEFAULT FALSE,
     song_source_url VARCHAR(255),
 
-    FOREIGN KEY (animeID) REFERENCES anime(animeID) ON DELETE SET NULL,
-    FOREIGN KEY (songtypeID) REFERENCES song_type(songtypeID) ON DELETE SET NULL
+    FOREIGN KEY (animeID) REFERENCES anime(animeID) ON DELETE CASCADE,
+    FOREIGN KEY (songtypeID) REFERENCES song_type(songtypeID) ON DELETE CASCADE
 );
 
 CREATE TABLE anime_rating_review (

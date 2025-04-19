@@ -1,0 +1,14 @@
+# DEPENDENCIES 
+# PYTHON VERSION: 3.9.7
+# PIP VERSION: 21.2.3
+# RUN THIS FILE WITH: pip install -r requirements.txt
+# python3.9 -m pip install --upgrade pip==21.2.3
+# or 
+# FROM python:3.9.7
+# RUN pip install --upgrade pip==21.2.3
+psycopg2==2.9.9
+requests==2.31.0
+#ANOTHER WAY OF GETTING THIS DEPENDENCIES IS"
+# python -m pip install Psycopg2
+# python -m pip install requests 
+
