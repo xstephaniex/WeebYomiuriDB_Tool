@@ -77,8 +77,8 @@ CREATE TABLE anime_manga_origin_country (
     country_code CHAR(2) NOT NULL          
 );
 
-CREATE TABLE anime_language_options (
-    languageoptionsID SERIAL PRIMARY KEY,
+CREATE TABLE anime_language_option(
+    languageoptionID SERIAL PRIMARY KEY,
     --language option label (e.g., "Japanese", "English", etc.)   
     language_label VARCHAR(100) NOT NULL     
 );
@@ -151,8 +151,9 @@ CREATE TABLE season (
     seasonID SERIAL PRIMARY KEY,
     animeID INTEGER NOT NULL,
     season_name VARCHAR(100) NOT NULL,
+    season_synopsis TEXT,
     number_of_episodes INTEGER,
-    \
+    
     FOREIGN KEY (animeID) REFERENCES anime(animeID) ON DELETE CASCADE
 );
 
@@ -178,8 +179,8 @@ CREATE TABLE weebyomiuri_user (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE release_schedule (
-    releaseScheduleID SERIAL PRIMARY KEY,
+CREATE TABLE release_frequency (
+    releasefrequencyID SERIAL PRIMARY KEY,
     release_type VARCHAR(100) NOT NULL
 );
 
@@ -416,4 +417,14 @@ CREATE TABLE manga_revision_history_table (
     FOREIGN KEY (userID) REFERENCES weebyomiuri_user(userID) ON DELETE CASCADE,
     FOREIGN KEY (mangaID) REFERENCES manga(mangaID) ON DELETE CASCADE
 
+);
+
+CREATE TABLE anime_language_option (
+    animeID INTEGER NOT NULL,
+    languageoptionID INTEGER NOT NULL,
+
+    PRIMARY KEY (animeID, languageoptionID),
+
+    FOREIGN KEY (animeID) REFERENCES anime(animeID) ON DELETE CASCADE,
+    FOREIGN KEY (languageoptionID) REFERENCES language_option(languageoptionID) ON DELETE CASCADE
 );
